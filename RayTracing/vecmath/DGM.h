@@ -49,13 +49,15 @@ namespace disc0ver {
 		inline vec3 operator-() const { return vec3(-e[0], -e[1], -e[2]); }
 		inline float operator[](int i) const { return e[i]; }
 		inline float& operator[] (int i) { return e[i]; }
+		template<typename type> inline vec3& operator=(Vec3<type> v) { return vec3(v.n[0], v.n[1], v.n[2]); }
 
 		inline vec3& operator+=(const vec3& v) { e[0] += v.e[0]; e[1] += v.e[1]; e[2] += v.e[2]; return *this; }
 		inline vec3& operator-=(const vec3& v) { e[0] -= v.e[0]; e[1] -= v.e[1]; e[2] -= v.e[2]; return *this; }
 		inline vec3& operator*=(const vec3& v) { e[0] *= v.e[0]; e[1] *= v.e[1]; e[2] *= v.e[2]; return *this; }
 		inline vec3& operator/=(const vec3& v) { e[0] /= v.e[0]; e[1] /= v.e[1]; e[2] /= v.e[2]; return *this; }
-		inline vec3& operator*=(const float t) { e[0] *= t; e[1] *= t; e[2] *= t; return *this; }
-		inline vec3& operator/=(const float t) { float k = 1.0 / t; e[0] *= k; e[1] *= k; e[2] *= k; return *this; }
+
+		template<typename type> inline vec3& operator*=(const type t) { e[0] *= t; e[1] *= t; e[2] *= t; return *this; }
+		template<typename type> inline vec3& operator/=(const type t) { float k = 1.0 / t; e[0] *= k; e[1] *= k; e[2] *= k; return *this; }
 
 		inline float length() const { return sqrt(e[0] * e[0] + e[1] * e[1] + e[2] * e[2]); }
 		inline float squared_length() const { return e[0] * e[0] + e[1] * e[1] + e[2] * e[2]; }
@@ -73,6 +75,7 @@ namespace disc0ver {
 	using Rotation = vec3<TRANSFORM>;
 	using Position = vec3<TRANSFORM>;
 	using Scale = vec3<TRANSFORM>;
+	using point = vec3<TRANSFORM>;
 	using rgb = vec3<RGB>;
 	
 	template<TYPE T>
@@ -109,11 +112,11 @@ namespace disc0ver {
 		return vec3<T>(v1.e[0] / v2.e[0], v1.e[1] / v2.e[1], v1.e[2] / v2.e[2]);
 	}
 	
-	template<TYPE T> inline vec3<T> operator*(const vec3<T>& v, float t) {
+	template<TYPE T, typename type> inline vec3<T> operator*(const vec3<T>& v, type t) {
 		return vec3<T>(v.e[0] * t, v.e[1] * t, v.e[2] * t);
 	}
 
-	template<TYPE T> inline vec3<T> operator/(const vec3<T>& v, float t) {
+	template<TYPE T, typename type> inline vec3<T> operator/(const vec3<T>& v, type t) {
 		return vec3<T>(v.e[0] / t, v.e[1] / t, v.e[2] / t);
 	}
 
@@ -126,5 +129,6 @@ namespace disc0ver {
 							   -(v1.e[0] * v2.e[2] - v1.e[2] * v2.e[0]),
 			                    (v1.e[0] * v2.e[1] - v1.e[1] * v2.e[0]));
 	}
+
  }
 #endif // !DGM_H
