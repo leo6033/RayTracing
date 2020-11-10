@@ -20,41 +20,63 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\OpenGL\include\glad\glad.c" />
-    <ClCompile Include="imgui\imgui.cpp" />
-    <ClCompile Include="imgui\imgui_demo.cpp" />
-    <ClCompile Include="imgui\imgui_draw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_glfw.cpp" />
-    <ClCompile Include="imgui\imgui_impl_opengl3.cpp" />
-    <ClCompile Include="imgui\imgui_impl_win32.cpp" />
-    <ClCompile Include="imgui\imgui_widgets.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="ui\debuggingView.cpp" />
-    <ClCompile Include="ui\debuggingWindow.cpp" />
-    <ClCompile Include="ui\GraphicalUI.cpp" />
-    <ClCompile Include="ui\ModelerCamera.cpp" />
-    <ClCompile Include="ui\TraceGLWindow.cpp" />
-    <ClCompile Include="ui\TraceUI.cpp" />
+    <ClCompile Include="src\fileio\imageio.cpp" />
+    <ClCompile Include="src\imgui\imgui.cpp" />
+    <ClCompile Include="src\imgui\imgui_demo.cpp" />
+    <ClCompile Include="src\imgui\imgui_draw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_glfw.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_opengl3.cpp" />
+    <ClCompile Include="src\imgui\imgui_impl_win32.cpp" />
+    <ClCompile Include="src\imgui\imgui_widgets.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\RayTracer.cpp" />
+    <ClCompile Include="src\sceneObjects\Box.cpp" />
+    <ClCompile Include="src\sceneObjects\Sphere.cpp" />
+    <ClCompile Include="src\scene\AABB.cpp" />
+    <ClCompile Include="src\scene\BVH_Node.cpp" />
+    <ClCompile Include="src\scene\Camera.cpp" />
+    <ClCompile Include="src\scene\Hitable.cpp" />
+    <ClCompile Include="src\scene\Material.cpp" />
+    <ClCompile Include="src\scene\Ray.cpp" />
+    <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\ui\GraphicalUI.cpp" />
+    <ClCompile Include="src\ui\ModelerCamera.cpp" />
+    <ClCompile Include="src\ui\TraceGLWindow.cpp" />
+    <ClCompile Include="src\ui\TraceUI.cpp" />
+    <ClCompile Include="src\util.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="imgui\imconfig.h" />
-    <ClInclude Include="imgui\imgui.h" />
-    <ClInclude Include="imgui\imgui_impl_glfw.h" />
-    <ClInclude Include="imgui\imgui_impl_opengl3.h" />
-    <ClInclude Include="imgui\imgui_impl_win32.h" />
-    <ClInclude Include="imgui\imgui_internal.h" />
-    <ClInclude Include="imgui\imstb_rectpack.h" />
-    <ClInclude Include="imgui\imstb_textedit.h" />
-    <ClInclude Include="imgui\imstb_truetype.h" />
-    <ClInclude Include="ui\debuggingView.h" />
-    <ClInclude Include="ui\debuggingWindow.h" />
-    <ClInclude Include="ui\dialog.h" />
-    <ClInclude Include="ui\GraphicalUI.h" />
-    <ClInclude Include="ui\ModelerCamera.h" />
-    <ClInclude Include="ui\TraceGLWindow.h" />
-    <ClInclude Include="ui\TraceUI.h" />
-    <ClInclude Include="vecmath\DGM.h" />
-    <ClInclude Include="vecmath\mat.h" />
-    <ClInclude Include="vecmath\vec.h" />
+    <ClInclude Include="src\fileio\CImg.h" />
+    <ClInclude Include="src\fileio\imageio.h" />
+    <ClInclude Include="src\imgui\imconfig.h" />
+    <ClInclude Include="src\imgui\imgui.h" />
+    <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
+    <ClInclude Include="src\imgui\imgui_impl_opengl3.h" />
+    <ClInclude Include="src\imgui\imgui_impl_win32.h" />
+    <ClInclude Include="src\imgui\imgui_internal.h" />
+    <ClInclude Include="src\imgui\imstb_rectpack.h" />
+    <ClInclude Include="src\imgui\imstb_textedit.h" />
+    <ClInclude Include="src\imgui\imstb_truetype.h" />
+    <ClInclude Include="src\RayTracer.h" />
+    <ClInclude Include="src\sceneObjects\Box.h" />
+    <ClInclude Include="src\sceneObjects\Sphere.h" />
+    <ClInclude Include="src\scene\AABB.h" />
+    <ClInclude Include="src\scene\BVH_Node.h" />
+    <ClInclude Include="src\scene\Camera.h" />
+    <ClInclude Include="src\scene\Hitable.h" />
+    <ClInclude Include="src\scene\Material.h" />
+    <ClInclude Include="src\scene\Ray.h" />
+    <ClInclude Include="src\scene\Scene.h" />
+    <ClInclude Include="src\scene\Texture.h" />
+    <ClInclude Include="src\ui\dialog.h" />
+    <ClInclude Include="src\ui\GraphicalUI.h" />
+    <ClInclude Include="src\ui\ModelerCamera.h" />
+    <ClInclude Include="src\ui\TraceGLWindow.h" />
+    <ClInclude Include="src\ui\TraceUI.h" />
+    <ClInclude Include="src\util.h" />
+    <ClInclude Include="src\vecmath\DGM.h" />
+    <ClInclude Include="src\vecmath\mat.h" />
+    <ClInclude Include="src\vecmath\vec.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -74,8 +96,8 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -115,6 +137,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>..\OpenGL\include;$(IncludePath)</IncludePath>
+    <LibraryPath>..\OpenGL\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -147,12 +171,15 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>FL\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>comctl32.lib;fltk.lib;fltkz.lib;fltkjpeg.lib;fltkpng.lib;fltkgl.lib;fltkimages.lib;wsock32.lib;opengl32.lib;glfw3.lib;glu32.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>FLlib\;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
