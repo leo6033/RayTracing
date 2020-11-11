@@ -215,5 +215,8 @@
     <ClInclude Include="src\imgui\imstb_truetype.h">
       <Filter>imgui</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\Perlin.h">
+      <Filter>头文件\scene</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

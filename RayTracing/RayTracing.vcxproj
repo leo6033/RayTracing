@@ -65,6 +65,7 @@
     <ClInclude Include="src\scene\Camera.h" />
     <ClInclude Include="src\scene\Hitable.h" />
     <ClInclude Include="src\scene\Material.h" />
+    <ClInclude Include="src\scene\Perlin.h" />
     <ClInclude Include="src\scene\Ray.h" />
     <ClInclude Include="src\scene\Scene.h" />
     <ClInclude Include="src\scene\Texture.h" />

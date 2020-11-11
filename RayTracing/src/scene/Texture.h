@@ -8,7 +8,7 @@
 #ifndef TEXTURE_H
 #define TEXTURE_H
 
-#include "../vecmath/DGM.h"
+#include "Perlin.h"
 
 namespace disc0ver {
 	class Texture {
@@ -46,6 +46,19 @@ namespace disc0ver {
 		}
 	private:
 		std::shared_ptr<Texture> odd, even;
+	};
+
+	class noiseTexture : public Texture {
+	public:
+		noiseTexture() = default;
+		noiseTexture(double sc) : scale(sc) {}
+
+		virtual rgb value(double u, double v, const point& p) const override {
+			return rgb(1, 1, 1) * 0.5 * (1 + sin(scale * p[2] + 10 * noise.turb(p)));
+		}
+	private:
+		Perlin noise;
+		double scale;
 	};
 }
 

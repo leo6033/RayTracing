@@ -20,7 +20,7 @@ namespace disc0ver {
 
 	Scene* LoadScene(std::string s);
 	Scene* twoSpheres();
-
+	Scene* twoPerlinSpheres();
 }
 
 #endif // !UTIL_H

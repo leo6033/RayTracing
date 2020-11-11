@@ -15,7 +15,7 @@ namespace disc0ver {
 
 	class Material {
 	public:
-		virtual rgb emitted(double u, double v, const point& p) {
+		virtual rgb emitted(double u, double v, const point& p) const {
 			return rgb(0, 0, 0);
 		}
 
@@ -83,6 +83,22 @@ namespace disc0ver {
 			r0 *= r0;
 			return r0 + (1 - r0) * std::pow(1 - cosine, 5);
 		}
+	};
+
+	class diffuseLight : public Material {
+	public:
+		diffuseLight(std::shared_ptr<Texture> a) : emit(a){}
+		diffuseLight(rgb c) : emit(std::make_shared<SolidColor>(c)){}
+
+		virtual bool scatter(const Ray& r_in, const hit_record& rec, rgb& attenuation, Ray& scattered) const override {
+			return false;
+		}
+
+		virtual rgb emitted(double u, double v, const point& p) const override {
+			return emit->value(u, v, p);
+		}
+	private:
+		std::shared_ptr<Texture> emit;
 	};
 }
 
