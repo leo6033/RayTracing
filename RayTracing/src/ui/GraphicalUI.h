@@ -12,6 +12,7 @@
 #include "TraceUI.h"
 #include "TraceGLWindow.h"
 // #include "debuggingWindow.h"
+#include "../RayTracer.h"
 
 #include <iostream>
 

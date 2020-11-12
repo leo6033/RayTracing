@@ -10,17 +10,23 @@
 #define UTIL_H
 
 #include "scene/Scene.h"
-#include "scene/Texture.h"
+#include "scene/BVH_Node.h"
 #include "scene/Material.h"
 #include "sceneObjects/Sphere.h"
+#include "sceneObjects/rect.h"
+#include "sceneObjects/Box.h"
 
 #include <string>
 
 namespace disc0ver {
 
 	Scene* LoadScene(std::string s);
+	Scene* randomScene();
 	Scene* twoSpheres();
 	Scene* twoPerlinSpheres();
+	Scene* earth();
+	Scene* simpleLight();
+	Scene* cornellBox();
 }
 
 #endif // !UTIL_H

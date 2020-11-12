@@ -33,8 +33,9 @@ namespace disc0ver {
 		virtual bool hit(const Ray& r, double t_min, double t_max, hit_record& rec) const override;
 		virtual bool bounding_box(AABB& output_box) const override;
 
+		
+	public:
 		int sample;
-	private:
 		std::vector<std::shared_ptr<Hitable>> objects;
 		Camera camera;
 		rgb background;

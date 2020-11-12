@@ -11,7 +11,6 @@
 #include "debuggingView.h"
 
 #include "GraphicalUI.h"
-#include "../RayTracer.h"
 #include "dialog.h"
 
 

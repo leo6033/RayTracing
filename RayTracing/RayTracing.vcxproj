@@ -31,6 +31,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
     <ClCompile Include="src\sceneObjects\Box.cpp" />
+    <ClCompile Include="src\sceneObjects\rect.cpp" />
     <ClCompile Include="src\sceneObjects\Sphere.cpp" />
     <ClCompile Include="src\scene\AABB.cpp" />
     <ClCompile Include="src\scene\BVH_Node.cpp" />
@@ -39,6 +40,7 @@
     <ClCompile Include="src\scene\Material.cpp" />
     <ClCompile Include="src\scene\Ray.cpp" />
     <ClCompile Include="src\scene\Scene.cpp" />
+    <ClCompile Include="src\scene\Texture.cpp" />
     <ClCompile Include="src\ui\GraphicalUI.cpp" />
     <ClCompile Include="src\ui\ModelerCamera.cpp" />
     <ClCompile Include="src\ui\TraceGLWindow.cpp" />
@@ -48,6 +50,7 @@
   <ItemGroup>
     <ClInclude Include="src\fileio\CImg.h" />
     <ClInclude Include="src\fileio\imageio.h" />
+    <ClInclude Include="src\fileio\rtw_stb_image.h" />
     <ClInclude Include="src\imgui\imconfig.h" />
     <ClInclude Include="src\imgui\imgui.h" />
     <ClInclude Include="src\imgui\imgui_impl_glfw.h" />
@@ -59,6 +62,7 @@
     <ClInclude Include="src\imgui\imstb_truetype.h" />
     <ClInclude Include="src\RayTracer.h" />
     <ClInclude Include="src\sceneObjects\Box.h" />
+    <ClInclude Include="src\sceneObjects\rect.h" />
     <ClInclude Include="src\sceneObjects\Sphere.h" />
     <ClInclude Include="src\scene\AABB.h" />
     <ClInclude Include="src\scene\BVH_Node.h" />

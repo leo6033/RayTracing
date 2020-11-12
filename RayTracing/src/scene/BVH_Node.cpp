@@ -8,7 +8,7 @@
 #include "BVH_Node.h"
 
 namespace disc0ver {
-	BVH_Node::BVH_Node(const std::vector<std::shared_ptr<Hitable>>& src_objects, size_t start, size_t end){
+	BVH_Node::BVH_Node(std::vector<std::shared_ptr<Hitable>>& src_objects, size_t start, size_t end){
 		auto objects = src_objects;
 		int axis = std::rand() % 3;
 
@@ -61,4 +61,19 @@ namespace disc0ver {
 		output_box = box;
 		return true;
 	}
+
+	inline bool boxCompare(const std::shared_ptr<Hitable> a, const std::shared_ptr<Hitable> b, int axis) {
+		AABB box_a, box_b;
+
+		if (!a->bounding_box(box_a) || !b->bounding_box(box_b))
+			std::cerr << "No bounding box in bvh_node constructor.\n";
+
+		return box_a.Min().e[axis] < box_b.Min().e[axis];
+	}
+
+	bool boxCompareX(const std::shared_ptr<Hitable> a, const std::shared_ptr<Hitable> b) { return boxCompare(a, b, 0); }
+
+	bool boxCompareY(const std::shared_ptr<Hitable> a, const std::shared_ptr<Hitable> b) { return boxCompare(a, b, 1); }
+
+	bool boxCompareZ(const std::shared_ptr<Hitable> a, const std::shared_ptr<Hitable> b) { return boxCompare(a, b, 2); }
 }

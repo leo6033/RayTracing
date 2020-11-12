@@ -120,6 +120,12 @@
     <ClCompile Include="src\imgui\imgui_widgets.cpp">
       <Filter>imgui</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene\Texture.cpp">
+      <Filter>源文件\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sceneObjects\rect.cpp">
+      <Filter>源文件\sceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ui\dialog.h">
@@ -217,6 +223,12 @@
     </ClInclude>
     <ClInclude Include="src\scene\Perlin.h">
       <Filter>头文件\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\fileio\rtw_stb_image.h">
+      <Filter>头文件\fileio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneObjects\rect.h">
+      <Filter>头文件\sceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

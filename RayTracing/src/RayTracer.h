@@ -4,7 +4,6 @@
 
 #include "vecmath/DGM.h"
 #include "scene/Ray.h"
-#include "scene/Material.h"
 #include "scene/Scene.h"
 #include "util.h"
 
