@@ -85,6 +85,23 @@ namespace disc0ver {
 		}
 	};
 
+	class Metal : public Material {
+	public:
+		Metal(const rgb& a, double f) : albedo(a), fuzz(f < 1 ? f : 1) {}
+
+		virtual bool scatter(const Ray& r_in, const hit_record& rec, rgb& attenuation, Ray& scattered) const override {
+			vec3<TRANSFORM> d = r_in.getDirection();
+			d.normalize();
+			vec3<TRANSFORM> reflected = reflect(d, rec.normal);
+			scattered = Ray(rec.p, reflected + fuzz * randomInUnitSphere<TRANSFORM>(), Ray::RayType::REFLECTION);
+			attenuation = albedo;
+			return (dot(scattered.getDirection(), rec.normal) > 0);
+		}
+	public:
+		rgb albedo;
+		double fuzz;
+	};
+
 	class diffuseLight : public Material {
 	public:
 		diffuseLight(std::shared_ptr<Texture> a) : emit(a){}
