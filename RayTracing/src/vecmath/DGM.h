@@ -35,12 +35,12 @@ namespace disc0ver {
 		vec3(Vec3f v) { e[0] = v[0]; e[1] = v[1]; e[2] = v[2]; }
 
 		
-		inline double get_x() { static_assert(T == TRANSFORM, "RGB has no contribute x, please use r"); return e[0]; }
-		inline double get_y() { static_assert(T == TRANSFORM, "RGB has no contribute y, please use g"); return e[1]; }
-		inline double get_z() { static_assert(T == TRANSFORM, "RGB has no contribute z, please use b"); return e[2]; }
-		inline double get_r() { static_assert(T == RGB, "TRANSFORM has no contribute r, please use x"); return e[0]; }
-		inline double get_g() { static_assert(T == RGB, "TRANSFORM has no contribute g, please use y"); return e[1]; }
-		inline double get_b() { static_assert(T == RGB, "TRANSFORM has no contribute b, please use z"); return e[2]; }
+		inline double get_x() const { static_assert(T == TRANSFORM, "RGB has no contribute x, please use r"); return e[0]; }
+		inline double get_y() const { static_assert(T == TRANSFORM, "RGB has no contribute y, please use g"); return e[1]; }
+		inline double get_z() const { static_assert(T == TRANSFORM, "RGB has no contribute z, please use b"); return e[2]; }
+		inline double get_r() const { static_assert(T == RGB, "TRANSFORM has no contribute r, please use x"); return e[0]; }
+		inline double get_g() const { static_assert(T == RGB, "TRANSFORM has no contribute g, please use y"); return e[1]; }
+		inline double get_b() const { static_assert(T == RGB, "TRANSFORM has no contribute b, please use z"); return e[2]; }
 
 		inline void set_x(double value) { static_assert(T == TRANSFORM, "RGB has no contribute x, please use r"); e[0] = value; }
 		inline void set_y(double value) { static_assert(T == TRANSFORM, "RGB has no contribute y, please use g"); e[1] = value; }
