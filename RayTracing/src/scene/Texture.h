@@ -60,6 +60,40 @@ namespace disc0ver {
 		Perlin noise;
 		double scale;
 	};
+
+	class ImageTexture : public Texture {
+	public:
+		const static int bytesPerPixel = 3;
+		
+		ImageTexture(): data(nullptr), width(0), height(0), bytesPerScanline(0) {};
+
+		ImageTexture(const char* filename);
+
+		~ImageTexture();
+
+		virtual rgb value(double u, double v, const point& p) const override {
+			if (data == nullptr)
+				return rgb(0, 1, 1);
+
+			u = (u < 0.0) ? 0.0 : ((u > 1.0) ? 1.0 : u);
+			v = 1 - ((v < 0.0) ? 0.0 : ((v > 1.0) ? 1.0 : v));
+
+			auto i = static_cast<int>(u * width);
+			auto j = static_cast<int>(v * height);
+
+			if (i >= width) i = width - 1;
+			if (j >= height) j = height - 1;
+
+			const auto colorScale = 1.0 / 255.0;
+			auto pixel = data + j * bytesPerScanline + i * bytesPerPixel;
+
+			return rgb(colorScale * pixel[0], colorScale * pixel[1], colorScale * pixel[2]);
+		}
+	private:
+		unsigned char* data;
+		int width, height;
+		int bytesPerScanline;
+	};
 }
 
 #endif // !TEXTURE_H
