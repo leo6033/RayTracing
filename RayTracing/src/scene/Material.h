@@ -117,6 +117,20 @@ namespace disc0ver {
 	private:
 		std::shared_ptr<Texture> emit;
 	};
+
+	class Isotropic : public Material {
+	public:
+		Isotropic(rgb c) : albedo(std::make_shared<SolidColor>(c)) {}
+		Isotropic(std::shared_ptr<Texture> a) : albedo(a) {}
+
+		virtual bool scatter(const Ray& r_in, const hit_record& rec, rgb& attenuation, Ray& scattered) const override {
+			scattered = Ray(rec.p, randomInUnitSphere<TRANSFORM>(), r_in.getType());
+			attenuation = albedo->value(rec.u, rec.v, rec.p);
+			return true;
+		}
+	public:
+		std::shared_ptr<Texture> albedo;
+	};
 }
 
 #endif // !MATERIAL_H
