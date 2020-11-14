@@ -10,7 +10,7 @@
 namespace disc0ver {
 	BVH_Node::BVH_Node(std::vector<std::shared_ptr<Hitable>>& src_objects, size_t start, size_t end){
 		auto objects = src_objects;
-		int axis = std::rand() % 3;
+		int axis = random_int(0, 2);
 
 		// Ëæ»ú»®·Ö
 		auto comparator = (axis == 0) ? boxCompareX :
@@ -31,7 +31,7 @@ namespace disc0ver {
 			}
 		}
 		else {
-			std::sort(objects.begin(), objects.begin() + end, comparator);
+			std::sort(objects.begin() + start, objects.begin() + end, comparator);
 
 			auto mid = start + object_span / 2;
 			left = std::make_shared<BVH_Node>(objects, start, mid);
