@@ -15,6 +15,7 @@
 #include "sceneObjects/Sphere.h"
 #include "sceneObjects/rect.h"
 #include "sceneObjects/Box.h"
+#include "sceneObjects/ConstantMedium.h"
 
 #include <string>
 
@@ -27,6 +28,8 @@ namespace disc0ver {
 	Scene* earth();
 	Scene* simpleLight();
 	Scene* cornellBox();
+	//Scene* cornellSmoke();
+	Scene* finalScene();
 }
 
 #endif // !UTIL_H
