@@ -20,6 +20,22 @@
 #include "vec.h"
 
 namespace disc0ver {
+
+	inline double random_double() {
+		// Returns a random real in [0,1).
+		return rand() / (RAND_MAX + 1.0);
+	}
+
+	inline double random_double(double min, double max) {
+		// Returns a random real in [min,max).
+		return min + (max - min) * random_double();
+	}
+
+	inline int random_int(int min, int max) {
+		// Returns a random integer in [min,max].
+		return static_cast<int>(random_double(min, (double)max + 1));
+	}
+
 	enum TYPE
 	{
 		TRANSFORM,
@@ -71,6 +87,14 @@ namespace disc0ver {
 			const auto s = 1e-8;
 			return (fabs(e[0]) < s) && (fabs(e[1]) < s) && (fabs(e[2]) < s);
 		}
+
+		inline static vec3 random() {
+            return vec3(random_double(), random_double(), random_double());
+        }
+
+        inline static vec3 random(double min, double max) {
+            return vec3(random_double(min,max), random_double(min,max), random_double(min,max));
+        }
 		
 		double e[3];
 		__declspec(property(get = get_x, put = set_x)) double x;
@@ -143,21 +167,6 @@ namespace disc0ver {
 			                    (v1.e[0] * v2.e[1] - v1.e[1] * v2.e[0]));
 	}
 
-	inline double random_double() {
-		// Returns a random real in [0,1).
-		return rand() / (RAND_MAX + 1.0);
-	}
-
-	inline double random_double(double min, double max) {
-		// Returns a random real in [min,max).
-		return min + (max - min) * random_double();
-	}
-
-	inline int random_int(int min, int max) {
-		// Returns a random integer in [min,max].
-		return static_cast<int>(random_double(min, (double)max + 1));
-	}
-
 	template<TYPE T> inline vec3<T> randomInUnitDisk() {
 		while (true) {
 			vec3<T> p = vec3<T>(random_double(-1, 1), random_double(-1, 1), 0);
@@ -166,9 +175,9 @@ namespace disc0ver {
 		}
 	}
 
-	template<TYPE T> inline vec3<T> randomInUnitSphere(double min = -1.0f, double max = 1.0f) {
+	template<TYPE T> inline vec3<T> randomInUnitSphere() {
 		while (true) {
-			vec3<T> p = vec3<T>(random_double(min, max), random_double(min, max), random_double(min, max));
+			vec3<T> p = vec3<T>::random(-1, 1);
 			if (p.length() >= 1)continue;
 			return p;
 		}
