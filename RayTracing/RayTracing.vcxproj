@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -31,6 +31,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\RayTracer.cpp" />
     <ClCompile Include="src\sceneObjects\Box.cpp" />
+    <ClCompile Include="src\sceneObjects\ConstantMedium.cpp" />
     <ClCompile Include="src\sceneObjects\rect.cpp" />
     <ClCompile Include="src\sceneObjects\Sphere.cpp" />
     <ClCompile Include="src\scene\AABB.cpp" />
@@ -62,6 +63,7 @@
     <ClInclude Include="src\imgui\imstb_truetype.h" />
     <ClInclude Include="src\RayTracer.h" />
     <ClInclude Include="src\sceneObjects\Box.h" />
+    <ClInclude Include="src\sceneObjects\ConstantMedium.h" />
     <ClInclude Include="src\sceneObjects\rect.h" />
     <ClInclude Include="src\sceneObjects\Sphere.h" />
     <ClInclude Include="src\scene\AABB.h" />
@@ -173,7 +175,7 @@
       <WarningLevel>Level3</WarningLevel>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <SDLCheck>true</SDLCheck>
+      <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>FL\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>

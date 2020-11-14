@@ -11,12 +11,12 @@ namespace disc0ver {
 	bool AABB::hit(const Ray& r, double& tMin, double& tMax) const
 	{
 		for (int a = 0; a < 3; a++) {
-			auto t0 = std::fmin((minP[a] - r.getOrigin()[a]) / r.getDirection()[a],
+			auto t0 = fmin((minP[a] - r.getOrigin()[a]) / r.getDirection()[a],
 				(maxP[a] - r.getOrigin()[a]) / r.getDirection()[a]);
-			auto t1 = std::fmax((minP[a] - r.getOrigin()[a]) / r.getDirection()[a],
+			auto t1 = fmax((minP[a] - r.getOrigin()[a]) / r.getDirection()[a],
 				(maxP[a] - r.getOrigin()[a]) / r.getDirection()[a]);
-			tMin = std::fmax(t0, tMin);
-			tMax = std::fmin(t1, tMax);
+			tMin = fmax(t0, tMin);
+			tMax = fmin(t1, tMax);
 			if (tMax <= tMin)
 				return false;
 		}
@@ -45,13 +45,13 @@ namespace disc0ver {
 	}
 
 	AABB surroundingBox(AABB box0, AABB box1) {
-		point _small(std::fmin(box0.Min().x, box1.Min().x),
-			std::fmin(box0.Min().y, box1.Min().y),
-			std::fmin(box0.Min().z, box1.Min().z));
+		point _small(fmin(box0.Min().x, box1.Min().x),
+					 fmin(box0.Min().y, box1.Min().y),
+					 fmin(box0.Min().z, box1.Min().z));
 
-		point _big(std::fmax(box0.Max().x, box1.Max().x),
-			std::fmax(box0.Max().y, box1.Max().y),
-			std::fmax(box0.Max().z, box1.Max().z));
+		point _big(fmax(box0.Max().x, box1.Max().x),
+				   fmax(box0.Max().y, box1.Max().y),
+				   fmax(box0.Max().z, box1.Max().z));
 
 		return AABB(_small, _big);
 	}

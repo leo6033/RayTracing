@@ -54,7 +54,7 @@ namespace disc0ver {
 		noiseTexture(double sc) : scale(sc) {}
 
 		virtual rgb value(double u, double v, const point& p) const override {
-			return rgb(1, 1, 1) * 0.5 * (1 + sin(scale * p[2] + 10 * noise.turb(p)));
+			return rgb(1, 1, 1) * 0.5 * (1 + sin(scale * p.x + 5 * noise.turb(p)));
 		}
 	private:
 		Perlin noise;
@@ -94,6 +94,8 @@ namespace disc0ver {
 		int width, height;
 		int bytesPerScanline;
 	};
+
+	void saveImage(const char* filename, int  Width, int  Height, int Channels, unsigned char* Output, bool open);
 }
 
 #endif // !TEXTURE_H

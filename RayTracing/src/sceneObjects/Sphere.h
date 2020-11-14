@@ -26,8 +26,8 @@ namespace disc0ver {
 
 	private:
 		static void getSphereUV(const point& p, double& u, double& v) {
-			auto theta = acos(-p[1]);
-			auto phi = atan2(-p[2], p[0]) + M_PI;
+			auto theta = acos(-p.y);
+			auto phi = atan2(-p.z, p.x) + M_PI;
 
 			u = phi / (2.0 * (double)M_PI);
 			v = theta / M_PI;

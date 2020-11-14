@@ -24,4 +24,10 @@ namespace disc0ver {
 	ImageTexture::~ImageTexture() {
 		STBI_FREE(data);
 	}
+
+	void saveImage(const char* filename, int  Width, int  Height, int Channels, unsigned char* Output, bool open = true)
+	{
+		//保存为png,也可以调用stbi_write_bmp 保存为bmp
+		stbi_write_png(filename, Width, Height, Channels, Output, 0);
+	}
 }

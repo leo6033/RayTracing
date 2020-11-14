@@ -16,7 +16,7 @@ namespace disc0ver {
 		Perlin() {
 			ranVec = new vec3<TRANSFORM>[pointCount];
 			for (int i = 0; i < pointCount; i++) {
-				ranVec[i] = vec3<TRANSFORM>(random_double(-1, 1), random_double(-1, 1), random_double(-1, 1));
+				ranVec[i] = vec3<TRANSFORM>::random(-1, 1);
 				ranVec[i].normalize();
 			}
 
@@ -33,12 +33,12 @@ namespace disc0ver {
 		}
 
 		double noise(const point& p) const{
-			auto u = p[0] - floor(p[0]);
-			auto v = p[1] - floor(p[1]);
-			auto w = p[2] - floor(p[2]);
-			auto i = static_cast<int>(floor(p[0]));
-			auto j = static_cast<int>(floor(p[1]));
-			auto k = static_cast<int>(floor(p[2]));
+			auto u = p.x - floor(p.x);
+			auto v = p.y - floor(p.y);
+			auto w = p.z - floor(p.z);
+			auto i = static_cast<int>(floor(p.x));
+			auto j = static_cast<int>(floor(p.y));
+			auto k = static_cast<int>(floor(p.z));
 			vec3<TRANSFORM> c[2][2][2];
 
 			for (int di = 0; di < 2; di++) {
