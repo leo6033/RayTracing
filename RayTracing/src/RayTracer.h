@@ -9,6 +9,7 @@
 
 #include <string>
 #include <sstream>
+#include <thread>
 
 namespace disc0ver {
 	class RayTracer

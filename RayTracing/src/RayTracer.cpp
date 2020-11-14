@@ -14,18 +14,17 @@ namespace disc0ver {
 	{
 		Ray r = world->getCamera().getRay(u, v);
 		rgb ret = traceRay(r, depth);
-		for (int i = 0; i < 3; i++) {
-			if (ret[i] < 0)ret[i] = 0;
-			if (ret[i] > 1)ret[i] = 1;
-		}
+		//for (int i = 0; i < 3; i++) {
+		//	if (ret[i] < 0)ret[i] = 0;
+		//	if (ret[i] > 1)ret[i] = 1;
+		//}
 		return ret;
 	}
-	
 	rgb RayTracer::traceRay(const Ray& r, int depth)
 	{
 		hit_record rec;
 
-		if (depth <= 0)
+		if (depth < 0)
 			return rgb(0, 0, 0);
 
 		if (!world->hit(r, 0.001, infinity, rec))
@@ -39,7 +38,6 @@ namespace disc0ver {
 			return emitted;
 
 		return emitted + attenuation * traceRay(scattered, depth - 1);
-		return rgb();
 	}
 	
 	void RayTracer::getBuffer(unsigned char *& buf, int& w, int& h)
@@ -68,28 +66,27 @@ namespace disc0ver {
 		m_bBufferReady = true;
 	}
 	
-	void RayTracer::tracePixel(int i, int j)
+	void RayTracer::tracePixel(int u, int v)
 	{
 		rgb col = rgb(0, 0, 0);
 		if (!sceneLoaded())
 			return;
 		for (int s = 0; s < world->sample; s++) {
-			double x = double(i + random_double()) / double(bufferWidth);
-			double y = double(j + random_double()) / double(bufferHeight);
-
+			double x = double(u + random_double()) / double(bufferWidth - 1);
+			double y = double(v + random_double()) / double(bufferHeight - 1);
 			col += trace(x, y);
 		}
 
 		auto r = col.r, g = col.g, b = col.b;
-		if (r != r)r = 0.0;
-		if (g != g)g = 0.0;
-		if (b != b)b = 0.0;
+		if (r != r)r = 0;
+		if (g != g)g = 0;
+		if (b != b)b = 0;
 
 		col = rgb(r, g, b);
 
-		auto scale = 1.0 / world->sample;
+		auto scale = 1.0 / (double)world->sample;
 
-		unsigned char* pixel = buffer + (i + j * bufferWidth) * 3;
+		unsigned char* pixel = buffer + (u + v * bufferWidth) * 3;
 
 		for (int i = 0; i < 3; i++) {
 			col[i] = sqrt(scale * col[i]);
