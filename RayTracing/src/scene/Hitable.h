@@ -34,6 +34,38 @@ namespace disc0ver {
 		virtual bool bounding_box(AABB& output_box) const = 0;
 	};
 
+	class RotateY : public Hitable {
+	public:
+		RotateY(std::shared_ptr<Hitable> p, double angle);
+
+		virtual bool hit(const Ray& r, double t_min, double t_max, hit_record& rec) const override;
+
+		virtual bool bounding_box(AABB& output_box) const override {
+			output_box = bbox;
+			return hasBox;
+		}
+
+	public:
+		std::shared_ptr<Hitable> ptr;
+		double sinTheta, cosTheta;
+		bool hasBox;
+		AABB bbox;
+	};
+
+	class Translate : public Hitable {
+	public:
+		Translate(std::shared_ptr<Hitable> p, const vec3<TRANSFORM>& _offset) : ptr(p), offset(_offset) {};
+
+		virtual bool hit(const Ray& r, double t_min, double t_max, hit_record& rec) const override;
+
+		virtual bool bounding_box(AABB& output_box) const override;
+
+	public:
+		std::shared_ptr<Hitable> ptr;
+		vec3<TRANSFORM> offset;
+	};
+
+
 }
 
 #endif // !HITABLE_H
