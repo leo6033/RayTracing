@@ -13,6 +13,7 @@
 #include "GraphicalUI.h"
 #include "dialog.h"
 #include <Windows.h>
+#include <chrono>
 
 
 #pragma warning (disable: 4996)
@@ -190,145 +191,61 @@ namespace disc0ver {
 			Fl::check();
 			Fl::flush();
 			int n = 0;
+			unsigned int threadNum = std::thread::hardware_concurrency();
 			doneTrace = false;
 			stopTrace = false;
-			std::thread t1([&]() {
-				for (int y = 0; y < height / 4; y++) {
+
+			std::vector<std::thread> _threads;
+			
+			auto fun = [&](int i) -> void {
+				for (int y = i * height / threadNum; y < (i + 1) * height / threadNum; y++) {
 					for (int x = 0; x < width; x++) {
 						if (stopTrace) break;
-
 						pUI->raytracer->tracePixel(x, y);
-						//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-					}
-					if (stopTrace) break;
-					n += 1;
-				}
-				});
-
-			std::thread t2([&]() {
-				for (int y = height / 4; y < 2 * height / 4; y++) {
-					for (int x = 0; x < width; x++) {
-						if (stopTrace) break;
-
-						pUI->raytracer->tracePixel(x, y);
-						//pUI->m_debuggingWindow->m_debuggingView->setDirty();
 					}
 					n += 1;
 					if (stopTrace) break;
 				}
-				});
+			};
 
-			std::thread t3([&]() {
-				for (int y = 2 * height / 4; y < 3 * height / 4; y++) {
-					for (int x = 0; x < width; x++) {
-						if (stopTrace) break;
+			for (int i = 0; i < threadNum; i++) {
+				auto wrapper = [=]() -> void {
+					auto start = std::chrono::high_resolution_clock::now();
+					fun(i);
+					auto end = std::chrono::high_resolution_clock::now();
+					auto sec = std::chrono::duration_cast<std::chrono::seconds>(end - start).count();
+					std::cout << "thread " << std::this_thread::get_id() << " time " << sec << std::endl;
+					 pUI->m_traceGlWindow->refresh();
+				};
 
-						pUI->raytracer->tracePixel(x, y);
-						//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-					}
-					n += 1;
-					if (stopTrace) break;
+				_threads.push_back(std::thread(wrapper));
+			}
+
+
+			for (auto& th : _threads) {
+				if (th.joinable()) {
+					th.detach();
 				}
-				});
-
-			std::thread t4([&]() {
-				for (int y = 3 * height / 4; y < 4 * height / 4; y++) {
-					for (int x = 0; x < width; x++) {
-						if (stopTrace) break;
-
-						pUI->raytracer->tracePixel(x, y);
-						//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-					}
-					n += 1;
-					if (stopTrace) break;
-				}
-				});
-			//std::thread v[4];
-			//for (int i = 0; i < 4; i++) {
-			//	v[i] = std::thread([&]() {
-			//		for (int y = i * height / 4; y < (i + 1) * height / 4; y++) {
-			//			for (int x = 0; x < width; x++) {
-			//				if (stopTrace) break;
-
-			//				pUI->raytracer->tracePixel(x, y);
-			//				//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-			//			}
-			//			n += 1;
-			//			if (stopTrace) break;
-			//		}
-			//		});
-			//	//t1.detach();
-			//}
-			//std::thread t1([&]() {
-			//	for (int y = 3 * height / 4; y < (3 + 1) * height / 4; y++) {
-			//		for (int x = 0; x < width; x++) {
-			//			if (stopTrace) break;
-
-			//			pUI->raytracer->tracePixel(x, y);
-			//			//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-			//		}
-			//		n += 1;
-			//		if (stopTrace) break;
-			//	}
-			//	});
-
-			while (n < height) {
-				pUI->m_traceGlWindow->refresh();
-				system("cls");
-				std::cerr << "load: " << (double)n / (double)height * 100.0 << "% " << std::endl;
-				Sleep(1000);
 			}
 			
-			//for (int i = 0; i < 4; i++) {
-			//	v[i].join();
-			//}
-			t1.join();
-			t2.join();
-			t3.join();
-			t4.join();
-			//for (int y = 0; y < height; y++) {
-			//	for (int x = 0; x < width; x++) {
-			//		if (stopTrace) break;
+			// ÊµÊ±Ë¢ÐÂ
+			while (n < height) {
+				Fl::lock();
+				if (Fl::ready()) {
+					pUI->m_traceGlWindow->refresh();
 
-			//		// current time
-			//		now = clock();
+					if (Fl::damage())
+						Fl::flush();
 
-			//		// check event every 1/2 second
-			//		if (((double)(now - prev) / CLOCKS_PER_SEC) > 0.5) {
-			//			prev = now;
+					// update the window label
+					sprintf(buffer, "(%d%%) %s", (int)((double)n / (double)height * 100.0), old_label);
+					pUI->m_traceGlWindow->label(buffer);
+				}
+				Fl::unlock();
+				//pUI->m_traceGlWindow->flush();
+				std::this_thread::sleep_for(std::chrono::seconds(1));
+			}
 
-			//			if (Fl::ready()) {
-			//				// refresh
-			//				pUI->m_traceGlWindow->refresh();
-			//				// check event
-			//				Fl::check();
-
-			//				if (Fl::damage()) {
-			//					Fl::flush();
-			//				}
-			//			}
-			//		}
-
-			//		pUI->raytracer->tracePixel(x, y);
-			//		//pUI->m_debuggingWindow->m_debuggingView->setDirty();
-			//	}
-
-			//	if (stopTrace) break;
-
-			//	// flush when finish a row
-			//	if (Fl::ready()) {
-			//		// refresh
-			//		pUI->m_traceGlWindow->refresh();
-
-			//		if (Fl::damage()) {
-			//			Fl::flush();
-			//		}
-			//	}
-
-			//	// update the window label
-			//	sprintf(buffer, "(%d%%) %s", (int)((double)y / (double)height * 100.0), old_label);
-			//	pUI->m_traceGlWindow->label(buffer);
-			//}
 			doneTrace = true;
 			stopTrace = false;
 			std::cout << "time" << ((double)(clock() - t) / CLOCKS_PER_SEC) << std::endl;
