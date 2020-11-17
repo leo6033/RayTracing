@@ -12,6 +12,7 @@
 #include "scene/Scene.h"
 #include "scene/BVH_Node.h"
 #include "scene/Material.h"
+#include "sceneObjects/Triangle.h"
 #include "sceneObjects/Sphere.h"
 #include "sceneObjects/rect.h"
 #include "sceneObjects/Box.h"
@@ -30,6 +31,8 @@ namespace disc0ver {
 	Scene* cornellBox();
 	//Scene* cornellSmoke();
 	Scene* finalScene();
+	Scene* triangle1();
+	Scene* triangle2();
 }
 
 #endif // !UTIL_H

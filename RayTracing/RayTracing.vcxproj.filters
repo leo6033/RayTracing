@@ -129,6 +129,9 @@
     <ClCompile Include="src\sceneObjects\ConstantMedium.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="src\sceneObjects\Triangle.cpp">
+      <Filter>源文件\sceneObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ui\dialog.h">
@@ -235,6 +238,12 @@
     </ClInclude>
     <ClInclude Include="src\sceneObjects\ConstantMedium.h">
       <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneObjects\Trimesh.h">
+      <Filter>头文件\sceneObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneObjects\Triangle.h">
+      <Filter>头文件\sceneObjects</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

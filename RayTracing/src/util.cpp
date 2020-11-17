@@ -40,7 +40,125 @@ namespace disc0ver {
 			std::cerr << "finalScene" << std::endl;
 			scene = finalScene();
 		}
+		else if (s == "triangle1.ray") {
+			std::cerr << "triangle1" << std::endl;
+			scene = triangle1();
+		}
+		else if (s == "triangle2.ray") {
+			std::cerr << "triangle2" << std::endl;
+			scene = triangle2();
+		}
 		return scene;
+	}
+
+	Scene* triangle1() {
+		Scene* objects = new Scene();
+		auto red = std::make_shared<Lambertian>(rgb(0.65, 0.05, 0.05));
+		auto white = std::make_shared<Lambertian>(rgb(0.73, 0.73, 0.73));
+		auto green = std::make_shared<Lambertian>(rgb(0.12, 0.45, 0.15));
+		auto light = std::make_shared<diffuseLight>(rgb(3, 3, 3));
+
+		objects->add(std::make_shared<yzRect>(0, 555, 0, 555, 555, green));
+		objects->add(std::make_shared<yzRect>(0, 555, 0, 555, 0, red));
+		objects->add(std::make_shared<xzRect>(113, 443, 127, 432, 554, light));
+		//objects->add(std::make_shared<xzRect>(163, 393, 177, 382, 554, light));
+		//objects->add(std::make_shared<xzRect>(213, 343, 227, 332, 554, light));
+		objects->add(std::make_shared<xzRect>(0, 555, 0, 555, 555, white));
+		objects->add(std::make_shared<xzRect>(0, 555, 0, 555, 0, white));
+		objects->add(std::make_shared<xyRect>(0, 555, 0, 555, 555, white));
+
+		Vertex v1 = Vertex({ 555, 0, 555 }, { 0,0,0 }, 0, 0);
+		Vertex v2 = Vertex({ 555, 555, 555 }, { 0,0,0 }, 0, 1);
+		Vertex v3 = Vertex({ 220,555,555 }, { 0,0,0 }, 220 / 550.0, 1);
+		Vertex v4 = Vertex({ 0, 555, 555 }, { 0,0,0 }, 1, 1);
+		Vertex v5 = Vertex({ 0, 0, 555 }, { 0,0,0 }, 1, 0);
+
+		auto earthTexture = std::make_shared<ImageTexture>("images\\earthmap.jpg");
+		auto earthSurface = std::make_shared<Lambertian>(earthTexture);
+
+		objects->add(std::make_shared<Triangle>(v5, v3, v1, std::make_shared<Metal>(rgb(0.7, 0.6, 0.5), 0.0)));
+
+		objects->add(std::make_shared<Triangle>(v3, v2, v1, earthSurface));
+		//objects->add(std::make_shared<Triangle>(v5, v3, v1, earthSurface));
+		objects->add(std::make_shared<Triangle>(v4, v3, v5, earthSurface));
+		
+
+		std::shared_ptr<Hitable>box2 = std::make_shared<Box>(point(0, 0, 0), point(165, 165, 165), white);
+		box2 = std::make_shared<RotateY>(box2, -18);
+		box2 = std::make_shared<Translate>(box2, vec3<TRANSFORM>(130, 0, 65));
+		//objects->add(box2);
+
+		//objects->add(std::make_shared<ConstantMedium>(box1, 0.01, rgb(0, 0, 0)));
+		objects->add(std::make_shared<ConstantMedium>(box2, 0.01, rgb(1, 1, 1)));
+
+		Camera* cam = new Camera();
+		cam->setAspectRatio(1.0);
+		cam->setEye(point(278, 278, -800));
+		cam->setLookSimple(point(278, 278, 0), point(278, 278, -800));
+		cam->setFOV(40);
+		objects->setCamera(*cam);
+		objects->getCamera().update();
+
+		objects->sample = 3000;
+
+		rgb* background = new rgb(0, 0, 0);
+		objects->setBackground(*background);
+		return objects;
+	}
+
+	Scene* triangle2() {
+		Scene* objects = new Scene();
+		auto red = std::make_shared<Lambertian>(rgb(0.65, 0.05, 0.05));
+		auto white = std::make_shared<Lambertian>(rgb(0.73, 0.73, 0.73));
+		auto green = std::make_shared<Lambertian>(rgb(0.12, 0.45, 0.15));
+		auto light = std::make_shared<diffuseLight>(rgb(3, 3, 3));
+
+		objects->add(std::make_shared<yzRect>(0, 555, 0, 555, 555, green));
+		objects->add(std::make_shared<yzRect>(0, 555, 0, 555, 0, red));
+		objects->add(std::make_shared<xzRect>(113, 443, 127, 432, 554, light));
+		//objects->add(std::make_shared<xzRect>(163, 393, 177, 382, 554, light));
+		//objects->add(std::make_shared<xzRect>(213, 343, 227, 332, 554, light));
+		objects->add(std::make_shared<xzRect>(0, 555, 0, 555, 555, white));
+		objects->add(std::make_shared<xzRect>(0, 555, 0, 555, 0, white));
+		objects->add(std::make_shared<xyRect>(0, 555, 0, 555, 555, white));
+
+		Vertex v1 = Vertex({ 555, 0, 555 }, { 0,0,0 }, 0, 0);
+		Vertex v2 = Vertex({ 555, 555, 555 }, { 0,0,0 }, 0, 1);
+		Vertex v3 = Vertex({ 220,555,555 }, { 0,0,0 }, 220 / 550.0, 1);
+		Vertex v4 = Vertex({ 0, 555, 555 }, { 0,0,0 }, 1, 1);
+		Vertex v5 = Vertex({ 0, 0, 555 }, { 0,0,0 }, 1, 0);
+
+		auto earthTexture = std::make_shared<ImageTexture>("images\\earthmap.jpg");
+		auto earthSurface = std::make_shared<Lambertian>(earthTexture);
+
+		//objects->add(std::make_shared<Triangle>(v5, v3, v1, std::make_shared<Metal>(rgb(0.7, 0.6, 0.5), 0.0)));
+
+		objects->add(std::make_shared<Triangle>(v3, v2, v1, earthSurface));
+		objects->add(std::make_shared<Triangle>(v5, v3, v1, earthSurface));
+		objects->add(std::make_shared<Triangle>(v4, v3, v5, earthSurface));
+
+
+		std::shared_ptr<Hitable>box2 = std::make_shared<Box>(point(0, 0, 0), point(165, 165, 165), white);
+		box2 = std::make_shared<RotateY>(box2, -18);
+		box2 = std::make_shared<Translate>(box2, vec3<TRANSFORM>(130, 0, 65));
+		//objects->add(box2);
+
+		//objects->add(std::make_shared<ConstantMedium>(box1, 0.01, rgb(0, 0, 0)));
+		//objects->add(std::make_shared<ConstantMedium>(box2, 0.01, rgb(1, 1, 1)));
+
+		Camera* cam = new Camera();
+		cam->setAspectRatio(1.0);
+		cam->setEye(point(278, 278, -800));
+		cam->setLookSimple(point(278, 278, 0), point(278, 278, -800));
+		cam->setFOV(40);
+		objects->setCamera(*cam);
+		objects->getCamera().update();
+
+		objects->sample = 3000;
+
+		rgb* background = new rgb(0, 0, 0);
+		objects->setBackground(*background);
+		return objects;
 	}
 
 	Scene* randomScene() {

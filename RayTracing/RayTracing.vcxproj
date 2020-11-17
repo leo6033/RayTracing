@@ -34,6 +34,7 @@
     <ClCompile Include="src\sceneObjects\ConstantMedium.cpp" />
     <ClCompile Include="src\sceneObjects\rect.cpp" />
     <ClCompile Include="src\sceneObjects\Sphere.cpp" />
+    <ClCompile Include="src\sceneObjects\Triangle.cpp" />
     <ClCompile Include="src\scene\AABB.cpp" />
     <ClCompile Include="src\scene\BVH_Node.cpp" />
     <ClCompile Include="src\scene\Camera.cpp" />
@@ -66,6 +67,8 @@
     <ClInclude Include="src\sceneObjects\ConstantMedium.h" />
     <ClInclude Include="src\sceneObjects\rect.h" />
     <ClInclude Include="src\sceneObjects\Sphere.h" />
+    <ClInclude Include="src\sceneObjects\Triangle.h" />
+    <ClInclude Include="src\sceneObjects\Trimesh.h" />
     <ClInclude Include="src\scene\AABB.h" />
     <ClInclude Include="src\scene\BVH_Node.h" />
     <ClInclude Include="src\scene\Camera.h" />
